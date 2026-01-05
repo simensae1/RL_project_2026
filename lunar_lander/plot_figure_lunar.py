@@ -23,7 +23,6 @@ def plot_comparison(dqn_file, c51_file):
         plt.plot(c51_data['Episode'], c51_data['Smooth_Reward'], color='orange', label='C51 (Categorical DQN)', linewidth=2)
 
         # Formatting
-        # plt.axhline(y=200, color='red', linestyle='--', label='Solved Threshold (200)')
         plt.title('DQN vs. C51 Performance on LunarLander-v3')
         plt.xlabel('Episode')
         plt.ylabel('Total Reward')
