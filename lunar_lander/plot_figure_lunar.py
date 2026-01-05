@@ -39,4 +39,4 @@ def plot_comparison(dqn_file, c51_file):
 
 
 if __name__ == "__main__":
-    plot_comparison('lunar_lander_dqn_results.csv', 'lunar_lander_c51_results.csv')
+    plot_comparison('lunar_lander/lunar_lander_dqn_results.csv', 'lunar_lander/lunar_lander_c51_results.csv')
