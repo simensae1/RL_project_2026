@@ -53,12 +53,11 @@ class CategoricalDQN(nn.Module):
         return (probs * self.support).sum(dim=2)
 
 
-def projection_distribution(next_dist, rewards, dones, gamma, num_atoms, Vmin, Vmax, support):
+def projection_distribution(next_dist, rewards, dones, gamma, num_atoms, Vmin, Vmax, support):  #algorithm 1 of the article
     batch_size = rewards.size(0)
     delta_z = (Vmax - Vmin) / (num_atoms - 1)
-
     Tz = rewards.unsqueeze(1) + (1 - dones.unsqueeze(1)) * gamma * support.unsqueeze(0)
-    Tz = Tz.clamp(min=Vmin, max=Vmax)
+    Tz = Tz.clamp(min=Vmin, max=Vmax)  # clamp is the operator [.]_{Vmin}^{Vmax}
     b = (Tz - Vmin) / delta_z
     l = b.floor().long()
     u = b.ceil().long()
