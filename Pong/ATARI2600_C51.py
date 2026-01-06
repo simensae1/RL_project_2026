@@ -25,15 +25,15 @@ class CategoricalDQN(nn.Module):
         self.num_atoms = num_atoms
         self.Vmin = Vmin
         self.Vmax = Vmax
-        self.register_buffer("support", torch.linspace(Vmin, Vmax, num_atoms))
+        self.register_buffer("support", torch.linspace(Vmin, Vmax, num_atoms))  #
 
-        self.conv1 = nn.Conv2d(input_shape[0], 32, kernel_size=8, stride=4)
+        self.conv1 = nn.Conv2d(input_shape[0], 32, kernel_size=8, stride=4)  # 
         self.conv2 = nn.Conv2d(32, 64, kernel_size=4, stride=2)
         self.conv3 = nn.Conv2d(64, 64, kernel_size=3, stride=1)
 
         fc_input_dim = self.feature_size(input_shape)
         self.fc1 = nn.Linear(fc_input_dim, 512)
-        self.fc_q = nn.Linear(512, num_actions * num_atoms)
+        self.fc_q = nn.Linear(512, num_actions * num_atoms)  #Instead of having only one output, the network outputs 51*num_actions.  
 
     def feature_size(self, input_shape):
         return self.conv3(self.conv2(self.conv1(torch.zeros(1, *input_shape)))).view(1, -1).size(1)
@@ -44,8 +44,8 @@ class CategoricalDQN(nn.Module):
         x = F.relu(self.conv3(x))
         x = x.view(x.size(0), -1)
         x = F.relu(self.fc1(x))
-        q_logits = self.fc_q(x).view(-1, self.num_actions, self.num_atoms)
-        return F.log_softmax(q_logits, dim=2)
+        q_logits = self.fc_q(x).view(-1, self.num_actions, self.num_atoms)  #this reshape the output to match a distribution of the 51 atoms for each possible action 
+        return F.log_softmax(q_logits, dim=2)  
 
     def get_q_value(self, x):
         log_probs = self.forward(x)
@@ -218,7 +218,7 @@ if __name__ == "__main__":
     liste_atomes = [2]
     for atomes in liste_atomes:
         parser = argparse.ArgumentParser()
-        parser.add_argument("--game", type=str, default="ALE/Pong-v5", help="Gymnasium ID")
+        parser.add_argument("--game", type=str, default="ALE/Asterix", help="Gymnasium ID")
         parser.add_argument("--atoms", type=int, default=atomes, help="Number of atoms (5, 11, 21, 51)")
         parser.add_argument("--frames", type=int, default=11_000_000, help="Total training frames")
         parser.add_argument("--seed", type=int, default=42, help="Random seed")

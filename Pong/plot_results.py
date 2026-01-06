@@ -22,7 +22,7 @@ def plot_comparison(dqn_file, c51_file_2, c51_file_51):
 
         # Plot Smoothed Data (bold)
         plt.plot(dqn_data['frame'], dqn_data['Smooth_Reward'], color='blue', label='Standard DQN', linewidth=2)
-        plt.plot(c51_data_2['frame'], c51_data_2['Smooth_Reward'], color='orange', label='C51 (Categorical DQN 2 atom)', linewidth=2)
+        plt.plot(c51_data_2['frame'], c51_data_2['Smooth_Reward'], color='orange', label='C51 (Categorical DQN 2 atoms)', linewidth=2)
         plt.plot(c51_data_51['frame'], c51_data_51['Smooth_Reward'], color='green', label='C51 (Categorical DQN 51 atoms)', linewidth=2)
 
         # Formatting
