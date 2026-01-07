@@ -197,8 +197,8 @@ def run_training(game_id, num_atoms, seed, total_frames=11_000_000):
         episode_reward += reward
 
         # Training
-        if len(buffer) > 1000 and frame_idx % 4 == 0:
-            states, actions, rewards, next_states, dones = buffer.sample(32)
+        if len(buffer) > 1000 and frame_idx % 4 == 0: #not all frame are used for training 
+            states, actions, rewards, next_states, dones = buffer.sample(32)  #
             recent_loss = agent.train_step(states, actions, rewards, next_states, dones)
 
         # Episode End
