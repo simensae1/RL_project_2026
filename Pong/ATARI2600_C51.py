@@ -218,7 +218,7 @@ def run_training(game_id, num_atoms, seed, total_frames=11_000_000):
 
 
 if __name__ == "__main__":
-    liste_atomes = [51]
+    liste_atomes = [2]
     for atomes in liste_atomes:
         parser = argparse.ArgumentParser()
         parser.add_argument("--game", type=str, default="ALE/Pong-v5", help="Gymnasium ID")
