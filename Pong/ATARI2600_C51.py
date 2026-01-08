@@ -166,6 +166,10 @@ def run_training(game_id, num_atoms, seed, total_frames=11_000_000):
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     agent = C51Agent((4, 84, 84), env.action_space.n, num_atoms, device)
+    print("-" * 30)
+    print(f"DEBUG: Atom values (Support) for {num_atoms} atoms:")
+    print(agent.online_net.support)
+    print("-" * 30)
     buffer = ReplayBuffer(capacity=1000000)  # Full buffer size for reproduction
 
     # Logging
@@ -214,10 +218,10 @@ def run_training(game_id, num_atoms, seed, total_frames=11_000_000):
 
 
 if __name__ == "__main__":
-    liste_atomes = [2]
+    liste_atomes = [51]
     for atomes in liste_atomes:
         parser = argparse.ArgumentParser()
-        parser.add_argument("--game", type=str, default="ALE/Asterix", help="Gymnasium ID")
+        parser.add_argument("--game", type=str, default="ALE/Pong-v5", help="Gymnasium ID")
         parser.add_argument("--atoms", type=int, default=atomes, help="Number of atoms (5, 11, 21, 51)")
         parser.add_argument("--frames", type=int, default=11_000_000, help="Total training frames")
         parser.add_argument("--seed", type=int, default=42, help="Random seed")
